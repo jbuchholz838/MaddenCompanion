@@ -193,7 +193,6 @@ D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\Dialog
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MainWindow.g.cs
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\PlayerDataGrid.g.cs
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\PositionStatusesGrid.g.cs
-D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\TestWindow.g.cs
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\TradesDataGrid.g.cs
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\App.g.cs
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\GeneratedInternalTypeHelper.g.cs
@@ -204,7 +203,6 @@ D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\Dialog
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MainWindow.baml
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\PlayerDataGrid.baml
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\PositionStatusesGrid.baml
-D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\TestWindow.baml
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\Themes\Generic.baml
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\TradesDataGrid.baml
 D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.g.resources

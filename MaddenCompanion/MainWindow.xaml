@@ -1,12 +1,783 @@
-﻿<Window x:Class="MaddenCompanion.MainWindow"
+﻿<Window xmlns:ig="http://schemas.infragistics.com/xaml" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MaddenCompanion"
+        xmlns:convert="clr-namespace:MaddenCompanion.Converters"
+        xmlns:igDP="http://infragistics.com/DataPresenter"
+        xmlns:igDock="http://infragistics.com/DockManager"
+        xmlns:igEditors="http://infragistics.com/Editors"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        x:Class="MaddenCompanion.TestWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+        Title="TestWindow" Height="500" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized" Closing="Window_Closing">
+
+    <Window.Resources>
+        <CollectionViewSource x:Name="teamInfoSource" x:Key="teamInfoViewSource" d:DesignSource="{d:DesignInstance {x:Type local:MaddenExport}, CreateList=True}"/>
+        <CollectionViewSource x:Name="playerTradesSource" x:Key="playerTradesViewSource" d:DesignSource="{d:DesignInstance {x:Type local:MaddenPlayerTrade}, CreateList=True}"/>
+        <CollectionViewSource x:Name="actionsSource" x:Key="actionsViewSource" d:DesignSource="{d:DesignInstance {x:Type local:MaddenAction}, CreateList=True}"/>
+        <CollectionViewSource x:Name="positionStatusesSource" x:Key="positionStatusesViewSource" d:DesignSource="{d:DesignInstance {x:Type local:MaddenPositionStatus}, CreateList=True}"/>
         
-    </Grid>
+        <local:DevTraitCompare x:Key="DevTraitCompare" />
+        <local:NumColorScaleConverter x:Key="NumColorScaleConverter" />
+        <local:DevColorScaleConverter x:Key="DevColorScaleConverter" />
+        <local:SalaryConverter x:Key="SalaryConverter" />
+        <convert:RateToGradientConverter x:Key="RateToGradientConverter" />
+        <Style TargetType="{x:Type igDP:DataRecordCellArea}">
+            <Setter Property="BackgroundAlternate" Value="#FF005DFF" />
+            <Setter Property="BorderAlternateBrush" Value="#B2ACACAC" />
+            <Setter Property="BackgroundHover" Value="{x:Null}" />
+            <Setter Property="BackgroundSelected" Value="#FF005DFF" />
+            <Setter Property="BackgroundActive" Value="#FF005DFF" />
+            <Setter Property="BorderSelectedBrush" Value="#FF005DFF" />
+        </Style>
+
+        <Style TargetType="{x:Type igDP:GroupByRecordPresenter}">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Background" Value="Red" />
+        </Style>
+
+        <igDP:FieldSettings x:Key="RatingFieldSettings">
+            <igDP:FieldSettings.CellValuePresenterStyle>
+                <Style TargetType="{x:Type igDP:CellValuePresenter}">
+                    <Setter Property="Background" Value="{Binding Value, RelativeSource={RelativeSource Self}, Converter={StaticResource RateToGradientConverter}}" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </igDP:FieldSettings.CellValuePresenterStyle>
+        </igDP:FieldSettings>
+
+        <igDP:FieldSettings x:Key="CenterNumberSettings" Width="60" LabelTextAlignment="Center">
+            <igDP:FieldSettings.CellValuePresenterStyle>
+                <Style TargetType="{x:Type igDP:CellValuePresenter}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                </igDP:FieldSettings.CellValuePresenterStyle>
+            </igDP:FieldSettings>
+
+            <igDP:FieldSettings x:Key="MoneyFieldSettings">
+            <igDP:FieldSettings.EditorStyle>
+                <Style TargetType="{x:Type igEditors:XamNumericEditor}">
+                    <Setter Property="ValueToDisplayTextConverter" Value="{StaticResource SalaryConverter}" />
+                </Style>
+            </igDP:FieldSettings.EditorStyle>
+        </igDP:FieldSettings>
+
+        <igDP:FieldLength x:Key="RatingsWidth">60</igDP:FieldLength>
+        <sys:String x:Key="MoneyMask">nnn,nnn,nnn,nnn</sys:String>
+        <sys:String x:Key="MoneyMaskMillions">$nnn.n M</sys:String>
+        <sys:String x:Key="MoneyMaskThousands">nnn,nnn,nnn,nnn</sys:String>
+        
+    </Window.Resources>
+
+    <DockPanel>
+        <ig:XamMenu DockPanel.Dock="Top" Height="25" >
+            <ig:XamMenuItem x:Name="menData" Header="Data" >
+                <ig:XamMenuItem x:Name="menDownloadData" Header="Download Data" Click="MenDownloadData_Click" />
+                <ig:XamMenuItem x:Name="menLoadData" Header="Load Data" Click="menLoadData_Click" />
+            </ig:XamMenuItem>
+            <ig:XamMenuItem x:Name="menAddGrid" Header="Add Player Grid" Click="menAddGrid_Click" />
+            <ig:XamMenuItem x:Name="menPositionStatuses" Header="Generate Position Status" Click="menPositionStatuses_Click" />
+        </ig:XamMenu>
+        <igDock:XamDockManager DockPanel.Dock="Right" x:Name="dockManager"  AllowMaximizeFloatingWindows="True" AllowMinimizeFloatingWindows="True" Background="White">
+            <igDock:XamDockManager.Panes>
+                <igDock:SplitPane igDock:XamDockManager.InitialLocation="DockedLeft">
+                </igDock:SplitPane>
+            </igDock:XamDockManager.Panes>
+            <igDock:DocumentContentHost>
+                <igDock:SplitPane x:Name="panMain" >
+                    <igDock:TabGroupPane x:Name="grpTabPane" BorderBrush="White" UseLayoutRounding="False" >
+                        
+                        <!--<igDock:ContentPane Header="Players" AllowClose="False" AllowDocking="True" AllowDockingBottom="True" AllowDockingFloating="True" AllowDockingInTabGroup="True" AllowDockingLeft="True" AllowDockingRight="True" AllowDockingTop="True" AllowFloatingOnly="False" AllowPinning="False" CloseButtonVisibility="Hidden" BorderBrush="{x:Null}">
+                            <DockPanel>
+                                <igDP:XamDataGrid x:Name="PlayersDataGrid" DockPanel.Dock="Bottom" DataContext="{StaticResource teamInfoViewSource}" DataSource="{Binding Players}" 
+                                                  SelectedDataItemsScope="RecordsOnly" IsGroupByAreaExpanded="True" Theme="IGTheme" >
+                                    
+                                    <igDP:XamDataGrid.FieldLayoutSettings>
+                                        <igDP:FieldLayoutSettings 
+                                            AutoGenerateFields="False"
+                                            AllowFieldGroupCollapsing="True"
+                                            HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                            FilterUIType="FilterRecord"
+                                            HighlightAlternateRecords="True"
+                                            AllowAddNew="False"
+                                            AllowDelete="False"
+                                            AllowRecordFixing="Top"
+                                        />
+                                    </igDP:XamDataGrid.FieldLayoutSettings>
+                                    
+                                    <igDP:XamDataGrid.FieldSettings>
+                                        <igDP:FieldSettings 
+                                            AllowRecordFiltering="true" 
+                                            AllowEdit="False"
+                                            CellHeight="30"
+                                            CellClickAction="SelectRecord"
+                                            LabelTextAlignment="Center"
+                                            AllowSummaries="true"
+                                            SummaryUIType="MultiSelect"
+                                            SummaryDisplayArea="TopFixed"
+                                        />
+                                    </igDP:XamDataGrid.FieldSettings>
+
+                                    <igDP:XamDataGrid.FieldLayouts>
+                                        <igDP:FieldLayout IsDefault="True">
+
+                                            <igDP:FieldLayout.SummaryDefinitions>
+                                                <igDP:SummaryDefinition Key="PlayerBestOvr" SourceFieldName="PlayerBestOvr" Calculator="Average" StringFormat="{}A: {0:0.00}" DisplayArea="TopFixed" />
+                                                <igDP:SummaryDefinition Key="PlayerBestOvr" SourceFieldName="PlayerBestOvr" Calculator="Average" StringFormat="{}A: {0:0.00}" DisplayArea="InGroupByRecords" />
+                                                <igDP:SummaryDefinition Key="PlayerBestOvr" SourceFieldName="PlayerBestOvr" Calculator="Maximum" StringFormat="{}M: {0:0.00}" DisplayArea="InGroupByRecords" IsVisible="False" />
+                                                <igDP:SummaryDefinition Key="PlayerBestOvr" SourceFieldName="PlayerBestOvr" Calculator="Maximum" StringFormat="{}M: {0:0.00}" DisplayArea="TopFixed" IsVisible="False" />
+                                            </igDP:FieldLayout.SummaryDefinitions>
+
+                                            <igDP:FieldLayout.SortedFields>
+                                                <igDP:FieldSortDescription Direction="Descending" FieldName="PlayerBestOvr" />
+                                            </igDP:FieldLayout.SortedFields>
+
+                                            <igDP:Field Name="FirstName" Label="First Name" Width="100" FixedLocation="FixedToNearEdge" Column="1" />
+                                            <igDP:Field Name="LastName" Label="Last Name" Width="100" FixedLocation="FixedToNearEdge" Column="2" />
+                                            <igDP:Field Name="Position" Label="Position" Width="75" FixedLocation="FixedToNearEdge" 
+                                                        LabelTextAlignment="Center" HorizontalContentAlignment="Center" Column="3" />
+                                            <igDP:Field Name="TeamName" Label="Team" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" FixedLocation="FixedToNearEdge" Column="4" />
+
+                                            <igDP:Field Name="PassingStats" Label="Passing Stats" Width="100" FixedLocation="FixedToNearEdge" Column="1"  />
+                                            <igDP:Field Name="RushingStats" Label="Rushing Stats" Width="100" FixedLocation="FixedToNearEdge" Column="1" />
+                                            <igDP:Field Name="ReceivingStats" Label="Receiving Stats" Width="100" FixedLocation="FixedToNearEdge" Column="1" />
+                                            <igDP:Field Name="DefenseStats" Label="Defense Stats" Width="100" FixedLocation="FixedToNearEdge" Column="1" />
+                                            <igDP:Field Name="PuntingStats" Label="Punting Stats" Width="100" FixedLocation="FixedToNearEdge" Column="1" />
+                                            <igDP:Field Name="KickingStats" Label="Kicking Stats" Width="100" FixedLocation="FixedToNearEdge" Column="1" />
+                                            
+                                            <igDP:FieldGroup Label="Player Info" Column="5" >
+                                                <igDP:Field Name="Age" Label="Age" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" Column="0" />
+                                                <igDP:Field Name="Weight" Label="WGT" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" Column="1" />
+                                                <igDP:Field Name="Height" Label="HGT" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" Column="2" />
+                                                <igDP:Field Name="BirthDay" Label="Birth Day" Visibility="Collapsed" Column="3" />
+                                                <igDP:Field Name="BirthMonth" Label="Birth Month" Visibility="Collapsed" Column="4" />
+                                                <igDP:Field Name="BirthYear" Label="Birth Year" Visibility="Collapsed" Column="5" />
+                                                <igDP:Field Name="HomeTown" Label="Home Town" Visibility="Collapsed" Column="6" />
+                                                <igDP:Field Name="HomeState" Label="Home State" Visibility="Collapsed" Column="7" />
+                                                <igDP:Field Name="YearsPro" Label="Years" Visibility="Collapsed" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="45" Column="8" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Status" Column="6" >
+                                                <igDP:Field Name="JerseyNum" Label="Jersey Num" Visibility="Collapsed" Column="0" />
+                                                <igDP:Field Name="IsActive" Label="Active" Column="1" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="IsOnIR" Label="IR" Column="2" Visibility="Collapsed" />
+                                                <igDP:Field Name="IsOnPracticeSquad" Label="PS" ToolTip="Practice Squad" Column="3" 
+                                                            LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="IsFreeAgent" Label="FA" ToolTip="Free Agent" Visibility="Collapsed" Column="4" 
+                                                            LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}"/>
+                                                <igDP:Field Name="InjuryType" Label="Injury Type" Column="5" Visibility="Collapsed" Width="120" />
+                                                <igDP:Field Name="InjuryLength" Label="Inj Wks" ToolTip="Injury Length" Column="6" 
+                                                            LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:NumericField Name="LegacyScore" Label="Legacy" Column="7" Visibility="Collapsed" Mask="{StaticResource MoneyMask}" Width="100" />
+                                                <igDP:NumericField Name="ExperiencePoints" Label="Experience" Column="8" Visibility="Collapsed" Mask="{StaticResource MoneyMask}" Width="70" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Draft" IsCollapsed="True" Visibility="Collapsed" Column="7">
+                                                <igDP:Field Name="College" Label="College" Column="0" />
+                                                <igDP:Field Name="DraftPick" Label="Pick" Column="1" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="DraftRound" Label="Round" Column="2" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="RookieYear" Label="Rookie Year" Column="3" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="75"/>
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Current Contract" Column="8">
+                                                <igDP:NumericField Name="ContractSalary" Label="Salary" ToolTip="Current Contract Salary" Visibility="Collapsed" Settings="{StaticResource MoneyFieldSettings}" Column="0" Width="75" />
+                                                <igDP:NumericField Name="ContractBonus" Label="Bonus" ToolTip="Current Contract Bonus" Visibility="Collapsed" Settings="{StaticResource MoneyFieldSettings}" Column="2" Width="75" />
+                                                <igDP:Field Name="ContractLength" Label="Length" ToolTip="Current Contact Length" Column="3" Visibility="Collapsed" HorizontalContentAlignment="Center" Width="75"/>
+                                                <igDP:NumericField Name="ContractYearSalary" Label="Yearly" ToolTip="Current Contract Yearly Salary" Settings="{StaticResource MoneyFieldSettings}" Column="4" Width="75" />
+                                                <igDP:Field Name="ContractYearsLeft" Label="Remain" ToolTip="Current Contract Years Remaining" Column="5" HorizontalContentAlignment="Center" Width="75"/>
+                                                <igDP:NumericField Name="CapHit" Label="Cap Hit" ToolTip="Current Cap Hit" Settings="{StaticResource MoneyFieldSettings}" Column="6" Width="75" />
+                                                <igDP:NumericField Name="CapReleasePenalty" Label="Rel Penalty" ToolTip="Release Cap Penalty" Visibility="Collapsed" Settings="{StaticResource MoneyFieldSettings}" Width="75" Column="7" />
+                                                <igDP:NumericField Name="CapReleaseNetSavings" Label="Rel Save" ToolTip="Release Cap Savings" Settings="{StaticResource MoneyFieldSettings}" Width="75" Column="8" />
+                                                
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Desired Salary" Visibility="Collapsed" Column="8">
+                                                <igDP:NumericField Name="DesiredContractSalary" Label="Salary" ToolTip="Desired Contract Salary" Visibility="Collapsed" Settings="{StaticResource MoneyFieldSettings}" Column="0" Width="75" />
+                                                <igDP:NumericField Name="DesiredContractBonus" Label="Bonus" ToolTip="Desired Contract Bonus" Visibility="Collapsed" Settings="{StaticResource MoneyFieldSettings}" Column="1" Width="75" />
+                                                <igDP:NumericField Name="DesiredContractYearSalary" Label="Yearly" ToolTip="Desired Contract Yearly Salary" Settings="{StaticResource MoneyFieldSettings}" Column="0" Width="75" />
+                                                <igDP:Field Name="DesiredContractLength" Label="Length" ToolTip="Desired Contract Length" Column="2"
+                                                            LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="75"/>
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Basic Ratings" Column="9">
+                                                <igDP:Field Name="PlayerBestOvr" Label="OVR" ToolTip="Overall" Column="0"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="StrengthRating" Label="STR" ToolTip="Strength" Column="1"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="AgilityRating" Label="AGI" ToolTip="Agility" Column="2"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="SpeedRating" Label="SPD" ToolTip="Speed" Column="3"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="AccelRating" Label="ACC" ToolTip="Acceleration" Column="4"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="StaminaRating" Label="STA" ToolTip="Stamina" Column="5"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="AwarenessRating" Label="AWR" ToolTip="Awareness" Column="6"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="JumpRating" Label="JMP" ToolTip="Jumping" Column="7"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="InjuryRating" Label="INJ" ToolTip="Injury" Column="8"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="ToughRating" Label="TGH" ToolTip="Toughness" Column="9"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="DevTrait" Label="DEV" ToolTip="Development" Column="10"
+                                                            LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" >
+                                                    <igDP:Field.Settings>
+                                                        <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}">
+                                                            <igDP:FieldSettings.CellValuePresenterStyle>
+                                                                <Style TargetType="{x:Type igDP:CellValuePresenter}">
+                                                                    <Setter Property="Background" Value="{Binding Value, RelativeSource={RelativeSource Self}, Converter={StaticResource DevColorScaleConverter}}" />
+                                                                </Style>
+                                                            </igDP:FieldSettings.CellValuePresenterStyle>
+                                                        </igDP:FieldSettings>
+                                                    </igDP:Field.Settings>
+                                                </igDP:Field>
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Passing Ratings" Column="10" IsCollapsed="True" >
+                                                <igDP:Field Name="ThrowPowerRating" Label="THP" ToolTip="Throw Power" Column="0"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="ThrowAccShortRating" Label="SAC" ToolTip="Short Throw Accuracy"  Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ThrowAccMidRating" Label="MAC" ToolTip="Medium Throw Accuracy"  Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ThrowAccDeepRating" Label="DAC" ToolTip="Deep Throw Accuracy"  Column="3"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ThrowAccRating" Label="TAC" ToolTip="Throw Accuracy Rating" Column="4" Visibility="Collapsed" 
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ThrowOnRunRating" Label="RUN" ToolTip="Throw on the Run"  Column="5"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ThrowPlayActRating" Label="PAC" ToolTip="Play Action"  Column="6"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Ball Carrier Ratings" Column="11" IsCollapsed="True" >
+                                                <igDP:Field Name="CarryRating" Label="CAR" ToolTip="Carrying" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="TruckRating" Label="TRK" ToolTip="Trucking" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="SpinMoveRating" Label="SPM" ToolTip="Spin Move" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="StiffArmRating" Label="SFA" ToolTip="Stiff Arm" Column="3"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="JukeMoveRating" Label="JKM" ToolTip="JukeMoveRating" Column="4"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ElusivenessRating" Label="ELU" ToolTip="Elusiveness" Column="5"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="BCVRating" Label="BCV" ToolTip="Ball Carrier Vision" Column="6"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Receiving Ratings" Column="12" IsCollapsed="True" >
+                                                <igDP:Field Name="CatchRating" Label="CTH" ToolTip="Catching" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="CatInTrafficRating" Label="CIT" ToolTip="Catch in Traffic" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="RouteRunRating" Label="RTE" ToolTip="Route Running" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="SpecCatchRating" Label="SPC" ToolTip="Spectacular Catch" Column="3"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ReleaseRating" Label="RLS" ToolTip="Release" Column="4"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Blocking Ratings" Column="13" IsCollapsed="True" >
+                                                <igDP:Field Name="PassBlockRating" Label="PBK" ToolTip="Pass Block" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="RunBlockRating" Label="RBK" ToolTip="Run Block" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ImpactBlockRating" Label="IBL" ToolTip="Impact Block" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Defense Ratings" Column="14" IsCollapsed="True" >
+                                                <igDP:Field Name="TackleRating" Label="TAK" ToolTip="Tackle" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="HitPowerRating" Label="HIT" ToolTip="Hit Power Rating" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="PowerMovesRating" Label="PMV" ToolTip="Power Moves" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="FinesseMovesRating" Label="FMV" ToolTip="Finesse Moves" Column="3"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="BlockShedRating" Label="BSH" ToolTip="Block Shedding" Column="4"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="PursuitRating" Label="PUR" ToolTip="Pursuit" Column="5"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="PlayRecRating" Label="PRC" ToolTip="Play Recognition" Column="6"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ManCoverRating" Label="MCV" ToolTip="Man Converage" Column="7"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ZoneCoverRating" Label="ZCV" ToolTip="Zone Coverage" Column="8"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="PressRating" Label="PRS" ToolTip="Press" Column="9"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Kicking Ratings" Column="15" IsCollapsed="True" >
+                                                <igDP:Field Name="KickPowerRating" Label="KPW" ToolTip="Kick Power" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="KickAccRating" Label="KAC" ToolTip="Kick Accuracy" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="KickRetRating" Label="RET" ToolTip="Kick Return" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Composite Ratings" Column="16" IsCollapsed="True" >
+                                                <igDP:Field Name="PhysicalGrade" Label="PHYS" ToolTip="Physical Grade" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="PersonalityGrade" Label="PERS" ToolTip="Personality Grade" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="IntangibleGrade" Label="TANG" ToolTip="Intangible Grade" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="SizeGrade" Label="SIZE" ToolTip="Size Grade" Column="3"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="DurabilityGrade" Label="DURA" ToolTip="Durability Grade" Column="4"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ProductionGrade" Label="PROD" ToolTip="Production Grade" Column="5"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ImportanceGrade" Label="PORT" ToolTip="Importance Grade" Column="6"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ConfidenceRating" Label="CONF" ToolTip="Confidence Rating" Column="7"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Traits" Column="17" Visibility="Collapsed" >
+
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Other" Column="18" Visibility="Collapsed" >
+
+                                            </igDP:FieldGroup>
+
+
+                                        </igDP:FieldLayout>
+
+                                        <igDP:FieldLayout Key="DefenseStats" ParentFieldName="DefenseStats">
+
+                                            <igDP:FieldLayout.Settings>
+                                                <igDP:FieldLayoutSettings AutoGenerateFields="False" HighlightAlternateRecords="True" />
+                                            </igDP:FieldLayout.Settings>
+
+                                            <igDP:Field Name="WeekNum" Label="Week" FixedLocation="FixedToNearEdge" Column="1" Settings="{StaticResource CenterNumberSettings}"/>
+                                            <igDP:Field Name="TotalTackles" Label="Tackles" Column="2" Settings="{StaticResource CenterNumberSettings}"/>
+                                            <igDP:Field Name="Sacks" Label="Sacks" Column="3" Settings="{StaticResource CenterNumberSettings}"/>
+                                            <igDP:Field Name="CatchesAllowed" Label="Catches Allowed" Column="4" Settings="{StaticResource CenterNumberSettings}"/>
+                                            <igDP:Field Name="Deflections" Label="Deflections" Column="5" Settings="{StaticResource CenterNumberSettings}"/>
+                                            <igDP:Field Name="FumblesForc" Label="Fumbles Forces" Column="6" Settings="{StaticResource CenterNumberSettings}"/>
+                                            <igDP:Field Name="FumblesRec" Label="Fumbles Recovered" Column="7" Settings="{StaticResource CenterNumberSettings}"/>
+                                            <igDP:Field Name="Interceptions" Label="Interceptions" Column="8" Settings="{StaticResource CenterNumberSettings}"/>
+                                            
+                                            <igDP:Field Name="IntReturnYards" Label="Int Return Yards" Column="9" Settings="{StaticResource CenterNumberSettings}" Visibility="Collapsed"/>
+                                            <igDP:Field Name="Points" Label="Points" Column="10" Settings="{StaticResource CenterNumberSettings}" Visibility="Collapsed"/>
+                                            <igDP:Field Name="Safeties" Label="Safeties" Column="11" Settings="{StaticResource CenterNumberSettings}" Visibility="Collapsed"/>
+                                            <igDP:Field Name="Touchdowns" Label="Touchdowns" Column="12" Settings="{StaticResource CenterNumberSettings}" Visibility="Collapsed"/>
+                                        </igDP:FieldLayout>
+
+                                        <igDP:FieldLayout Key="KickingStats" ParentFieldName="KickingStats">
+
+                                            <igDP:FieldLayout.Settings>
+                                                <igDP:FieldLayoutSettings AutoGenerateFields="True" />
+                                            </igDP:FieldLayout.Settings>
+
+                                            <igDP:Field Name="WeekNum" Label="Week" FixedLocation="FixedToNearEdge" Column="1" Settings="{StaticResource CenterNumberSettings}"/>
+                                            
+                                            
+                                        </igDP:FieldLayout>
+
+                                        <igDP:FieldLayout Key="RushingStats" ParentFieldName="RushingStats">
+
+                                            <igDP:FieldLayout.Settings>
+                                                <igDP:FieldLayoutSettings AutoGenerateFields="True" />
+                                            </igDP:FieldLayout.Settings>
+
+                                            <igDP:Field Name="WeekNum" Label="Week" FixedLocation="FixedToNearEdge" Column="1" Settings="{StaticResource CenterNumberSettings}"/>
+
+                                        </igDP:FieldLayout>
+
+                                        <igDP:FieldLayout Key="PassingStats" ParentFieldName="PassingStats">
+
+                                            <igDP:FieldLayout.Settings>
+                                                <igDP:FieldLayoutSettings AutoGenerateFields="True" />
+                                            </igDP:FieldLayout.Settings>
+
+                                            <igDP:Field Name="WeekNum" Label="Week" FixedLocation="FixedToNearEdge" Column="1" Settings="{StaticResource CenterNumberSettings}"/>
+
+                                        </igDP:FieldLayout>
+
+                                        <igDP:FieldLayout Key="PuntingStats" ParentFieldName="PuntingStats">
+
+                                            <igDP:FieldLayout.Settings>
+                                                <igDP:FieldLayoutSettings AutoGenerateFields="True" />
+                                            </igDP:FieldLayout.Settings>
+
+                                            <igDP:Field Name="WeekNum" Label="Week" FixedLocation="FixedToNearEdge" Column="1" Settings="{StaticResource CenterNumberSettings}"/>
+
+                                        </igDP:FieldLayout>
+
+                                        <igDP:FieldLayout Key="ReceivingStats" ParentFieldName="ReceivingStats">
+
+                                            <igDP:FieldLayout.Settings>
+                                                <igDP:FieldLayoutSettings AutoGenerateFields="True" />
+                                            </igDP:FieldLayout.Settings>
+
+                                            <igDP:Field Name="WeekNum" Label="Week" FixedLocation="FixedToNearEdge" Column="1" Settings="{StaticResource CenterNumberSettings}"/>
+
+                                        </igDP:FieldLayout>
+
+                                    </igDP:XamDataGrid.FieldLayouts>
+                                </igDP:XamDataGrid>
+                            </DockPanel>
+                        </igDock:ContentPane>
+                        <igDock:ContentPane Header="Players 2" AllowClose="False" AllowDocking="True" AllowDockingBottom="True" AllowDockingFloating="True" AllowDockingInTabGroup="True" AllowDockingLeft="True" AllowDockingRight="True" AllowDockingTop="True" AllowFloatingOnly="False" AllowInDocumentHost="True" AllowPinning="False" CloseButtonVisibility="Hidden" BorderBrush="{x:Null}">
+                            <DockPanel>
+                                <igDP:XamDataGrid x:Name="PlayersDataGrid2" DockPanel.Dock="Bottom" DataContext="{StaticResource teamInfoViewSource}" DataSource="{Binding Players}" 
+                                                  SelectedDataItemsScope="RecordsOnly" IsGroupByAreaExpanded="True" Theme="IGTheme" >
+
+                                    <igDP:XamDataGrid.FieldLayoutSettings>
+                                        <igDP:FieldLayoutSettings 
+                                            AutoGenerateFields="False"
+                                            AllowFieldGroupCollapsing="True"
+                                            HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                            FilterUIType="FilterRecord"
+                                            HighlightAlternateRecords="True"
+                                            AllowAddNew="False"
+                                            AllowDelete="False"
+                                            AllowRecordFixing="Top"
+                                        />
+                                    </igDP:XamDataGrid.FieldLayoutSettings>
+
+                                    <igDP:XamDataGrid.FieldSettings>
+                                        <igDP:FieldSettings 
+                                            AllowRecordFiltering="true" 
+                                            AllowEdit="False"
+                                            CellHeight="30"
+                                            CellClickAction="SelectRecord"
+                                            LabelTextAlignment="Center"
+                                            AllowSummaries="false"
+                                            SummaryUIType="MultiSelect"
+                                            SummaryDisplayArea="TopFixed"
+                                        />
+                                    </igDP:XamDataGrid.FieldSettings>
+
+                                    <igDP:XamDataGrid.FieldLayouts>
+                                        <igDP:FieldLayout IsDefault="True">
+
+                                            <igDP:FieldLayout.SortedFields>
+                                                <igDP:FieldSortDescription Direction="Descending" FieldName="PlayerBestOvr" />
+                                            </igDP:FieldLayout.SortedFields>
+
+                                            <igDP:Field Name="FirstName" Label="First Name" Width="100" FixedLocation="FixedToNearEdge" Column="1" />
+                                            <igDP:Field Name="LastName" Label="Last Name" Width="100" FixedLocation="FixedToNearEdge" Column="2" />
+                                            <igDP:Field Name="Position" Label="Position" Width="75" FixedLocation="FixedToNearEdge" 
+                                                        LabelTextAlignment="Center" HorizontalContentAlignment="Center" Column="3" />
+                                            <igDP:Field Name="TeamName" Label="Team" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" FixedLocation="FixedToNearEdge" Column="4" />
+
+                                            <igDP:FieldGroup Label="Player Info" Column="5" >
+                                                <igDP:Field Name="Age" Label="Age" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" Column="0" />
+                                                <igDP:Field Name="Weight" Label="WGT" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" Column="1" />
+                                                <igDP:Field Name="Height" Label="HGT" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" Column="2" />
+                                                <igDP:Field Name="BirthDay" Label="Birth Day" Visibility="Collapsed" Column="3" />
+                                                <igDP:Field Name="BirthMonth" Label="Birth Month" Visibility="Collapsed" Column="4" />
+                                                <igDP:Field Name="BirthYear" Label="Birth Year" Visibility="Collapsed" Column="5" />
+                                                <igDP:Field Name="HomeTown" Label="Home Town" Visibility="Collapsed" Column="6" />
+                                                <igDP:Field Name="HomeState" Label="Home State" Visibility="Collapsed" Column="7" />
+                                                <igDP:Field Name="YearsPro" Label="Years" Visibility="Collapsed" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="45" Column="8" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Status" Column="6" >
+                                                <igDP:Field Name="JerseyNum" Label="Jersey Num" Visibility="Collapsed" Column="0" />
+                                                <igDP:Field Name="IsActive" Label="Active" Column="1" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="IsOnIR" Label="IR" Column="2" Visibility="Collapsed" />
+                                                <igDP:Field Name="IsOnPracticeSquad" Label="PS" ToolTip="Practice Squad" Column="3" 
+                                                            LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="IsFreeAgent" Label="FA" ToolTip="Free Agent" Visibility="Collapsed" Column="4" 
+                                                            LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}"/>
+                                                <igDP:Field Name="InjuryType" Label="Injury Type" Column="5" Visibility="Collapsed" Width="120" />
+                                                <igDP:Field Name="InjuryLength" Label="Inj Wks" ToolTip="Injury Length" Column="6" 
+                                                            LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:NumericField Name="LegacyScore" Label="Legacy" Column="7" Visibility="Collapsed" Mask="{StaticResource MoneyMask}" Width="100" />
+                                                <igDP:NumericField Name="ExperiencePoints" Label="Experience" Column="8" Visibility="Collapsed" Mask="{StaticResource MoneyMask}" Width="70" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Draft" IsCollapsed="True" Visibility="Collapsed" Column="7">
+                                                <igDP:Field Name="College" Label="College" Column="0" />
+                                                <igDP:Field Name="DraftPick" Label="Pick" Column="1" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="DraftRound" Label="Round" Column="2" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="RookieYear" Label="Rookie Year" Column="3" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="75"/>
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Current Contract" Column="8">
+                                                <igDP:NumericField Name="ContractSalary" Label="Salary" ToolTip="Current Contract Salary" Visibility="Collapsed" Settings="{StaticResource MoneyFieldSettings}" Column="0" Width="75" />
+                                                <igDP:NumericField Name="ContractBonus" Label="Bonus" ToolTip="Current Contract Bonus" Visibility="Collapsed" Settings="{StaticResource MoneyFieldSettings}" Column="2" Width="75" />
+                                                <igDP:Field Name="ContractLength" Label="Length" ToolTip="Current Contact Length" Column="3" Visibility="Collapsed" HorizontalContentAlignment="Center" Width="75"/>
+                                                <igDP:NumericField Name="ContractYearSalary" Label="Yearly" ToolTip="Current Contract Yearly Salary" Settings="{StaticResource MoneyFieldSettings}" Column="4" Width="75" />
+                                                <igDP:Field Name="ContractYearsLeft" Label="Remain" ToolTip="Current Contract Years Remaining" Column="5" HorizontalContentAlignment="Center" Width="75"/>
+                                                <igDP:NumericField Name="CapHit" Label="Cap Hit" ToolTip="Current Cap Hit" Settings="{StaticResource MoneyFieldSettings}" Column="6" Width="75" />
+                                                <igDP:NumericField Name="CapReleasePenalty" Label="Rel Penalty" ToolTip="Release Cap Penalty" Visibility="Collapsed" Settings="{StaticResource MoneyFieldSettings}" Width="75" Column="7" />
+                                                <igDP:NumericField Name="CapReleaseNetSavings" Label="Rel Save" ToolTip="Release Cap Savings" Settings="{StaticResource MoneyFieldSettings}" Width="75" Column="8" />
+
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Desired Salary" Visibility="Collapsed" Column="8">
+                                                <igDP:NumericField Name="DesiredContractSalary" Label="Salary" ToolTip="Desired Contract Salary" Visibility="Collapsed" Settings="{StaticResource MoneyFieldSettings}" Column="0" Width="75" />
+                                                <igDP:NumericField Name="DesiredContractBonus" Label="Bonus" ToolTip="Desired Contract Bonus" Visibility="Collapsed" Settings="{StaticResource MoneyFieldSettings}" Column="1" Width="75" />
+                                                <igDP:NumericField Name="DesiredContractYearSalary" Label="Yearly" ToolTip="Desired Contract Yearly Salary" Settings="{StaticResource MoneyFieldSettings}" Column="0" Width="75" />
+                                                <igDP:Field Name="DesiredContractLength" Label="Length" ToolTip="Desired Contract Length" Column="2"
+                                                            LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="75"/>
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Basic Ratings" Column="9">
+                                                <igDP:Field Name="PlayerBestOvr" Label="OVR" ToolTip="Overall" Column="0"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="StrengthRating" Label="STR" ToolTip="Strength" Column="1"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="AgilityRating" Label="AGI" ToolTip="Agility" Column="2"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="SpeedRating" Label="SPD" ToolTip="Speed" Column="3"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="AccelRating" Label="ACC" ToolTip="Acceleration" Column="4"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="StaminaRating" Label="STA" ToolTip="Stamina" Column="5"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="AwarenessRating" Label="AWR" ToolTip="Awareness" Column="6"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="JumpRating" Label="JMP" ToolTip="Jumping" Column="7"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="InjuryRating" Label="INJ" ToolTip="Injury" Column="8"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="ToughRating" Label="TGH" ToolTip="Toughness" Column="9"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="DevTrait" Label="DEV" ToolTip="Development" Column="10"
+                                                            LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" >
+                                                    <igDP:Field.Settings>
+                                                        <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}">
+                                                            <igDP:FieldSettings.CellValuePresenterStyle>
+                                                                <Style TargetType="{x:Type igDP:CellValuePresenter}">
+                                                                    <Setter Property="Background" Value="{Binding Value, RelativeSource={RelativeSource Self}, Converter={StaticResource DevColorScaleConverter}}" />
+                                                                </Style>
+                                                            </igDP:FieldSettings.CellValuePresenterStyle>
+                                                        </igDP:FieldSettings>
+                                                    </igDP:Field.Settings>
+                                                </igDP:Field>
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Passing Ratings" Column="10" IsCollapsed="True" >
+                                                <igDP:Field Name="ThrowPowerRating" Label="THP" ToolTip="Throw Power" Column="0"
+                                                            LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                                                <igDP:Field Name="ThrowAccShortRating" Label="SAC" ToolTip="Short Throw Accuracy"  Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ThrowAccMidRating" Label="MAC" ToolTip="Medium Throw Accuracy"  Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ThrowAccDeepRating" Label="DAC" ToolTip="Deep Throw Accuracy"  Column="3"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ThrowAccRating" Label="TAC" ToolTip="Throw Accuracy Rating" Column="4" Visibility="Collapsed" 
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ThrowOnRunRating" Label="RUN" ToolTip="Throw on the Run"  Column="5"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ThrowPlayActRating" Label="PAC" ToolTip="Play Action"  Column="6"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Ball Carrier Ratings" Column="11" IsCollapsed="True" >
+                                                <igDP:Field Name="CarryRating" Label="CAR" ToolTip="Carrying" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="TruckRating" Label="TRK" ToolTip="Trucking" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="SpinMoveRating" Label="SPM" ToolTip="Spin Move" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="StiffArmRating" Label="SFA" ToolTip="Stiff Arm" Column="3"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="JukeMoveRating" Label="JKM" ToolTip="JukeMoveRating" Column="4"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ElusivenessRating" Label="ELU" ToolTip="Elusiveness" Column="5"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="BCVRating" Label="BCV" ToolTip="Ball Carrier Vision" Column="6"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Receiving Ratings" Column="12" IsCollapsed="True" >
+                                                <igDP:Field Name="CatchRating" Label="CTH" ToolTip="Catching" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="CatInTrafficRating" Label="CIT" ToolTip="Catch in Traffic" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="RouteRunRating" Label="RTE" ToolTip="Route Running" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="SpecCatchRating" Label="SPC" ToolTip="Spectacular Catch" Column="3"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ReleaseRating" Label="RLS" ToolTip="Release" Column="4"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Blocking Ratings" Column="13" IsCollapsed="True" >
+                                                <igDP:Field Name="PassBlockRating" Label="PBK" ToolTip="Pass Block" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="RunBlockRating" Label="RBK" ToolTip="Run Block" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ImpactBlockRating" Label="IBL" ToolTip="Impact Block" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Defense Ratings" Column="14" IsCollapsed="True" >
+                                                <igDP:Field Name="TackleRating" Label="TAK" ToolTip="Tackle" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="HitPowerRating" Label="HIT" ToolTip="Hit Power Rating" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="PowerMovesRating" Label="PMV" ToolTip="Power Moves" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="FinesseMovesRating" Label="FMV" ToolTip="Finesse Moves" Column="3"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="BlockShedRating" Label="BSH" ToolTip="Block Shedding" Column="4"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="PursuitRating" Label="PUR" ToolTip="Pursuit" Column="5"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="PlayRecRating" Label="PRC" ToolTip="Play Recognition" Column="6"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ManCoverRating" Label="MCV" ToolTip="Man Converage" Column="7"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ZoneCoverRating" Label="ZCV" ToolTip="Zone Coverage" Column="8"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="PressRating" Label="PRS" ToolTip="Press" Column="9"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Kicking Ratings" Column="15" IsCollapsed="True" >
+                                                <igDP:Field Name="KickPowerRating" Label="KPW" ToolTip="Kick Power" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="KickAccRating" Label="KAC" ToolTip="Kick Accuracy" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="KickRetRating" Label="RET" ToolTip="Kick Return" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Composite Ratings" Column="16" IsCollapsed="True" >
+                                                <igDP:Field Name="PhysicalGrade" Label="PHYS" ToolTip="Physical Grade" Column="0"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="PersonalityGrade" Label="PERS" ToolTip="Personality Grade" Column="1"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="IntangibleGrade" Label="TANG" ToolTip="Intangible Grade" Column="2"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="SizeGrade" Label="SIZE" ToolTip="Size Grade" Column="3"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="DurabilityGrade" Label="DURA" ToolTip="Durability Grade" Column="4"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ProductionGrade" Label="PROD" ToolTip="Production Grade" Column="5"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ImportanceGrade" Label="PORT" ToolTip="Importance Grade" Column="6"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                                <igDP:Field Name="ConfidenceRating" Label="CONF" ToolTip="Confidence Rating" Column="7"
+                                                            LabelTextAlignment="Center" Settings="{StaticResource RatingFieldSettings}" Width="{StaticResource RatingsWidth}" />
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Traits" Column="17" Visibility="Collapsed" >
+
+                                            </igDP:FieldGroup>
+
+                                            <igDP:FieldGroup Label="Other" Column="18" Visibility="Collapsed" >
+
+                                            </igDP:FieldGroup>
+
+
+                                        </igDP:FieldLayout>
+                                    </igDP:XamDataGrid.FieldLayouts>
+                                </igDP:XamDataGrid>
+                            </DockPanel>
+                        </igDock:ContentPane>
+                        <igDock:ContentPane Header="Team Standings" AllowClose="False" AllowDocking="False" AllowDockingBottom="False" AllowDockingFloating="False" AllowDockingInTabGroup="False" AllowDockingLeft="False" AllowDockingRight="False" AllowDockingTop="False" AllowFloatingOnly="False" AllowInDocumentHost="False" AllowPinning="False" CloseButtonVisibility="Hidden" BorderBrush="{x:Null}">
+                            <DockPanel>
+                                <igDP:XamDataGrid DockPanel.Dock="Bottom" DataContext="{StaticResource teamInfoViewSource}" DataSource="{Binding TeamStandings}" >
+                                    <igDP:XamDataGrid.FieldLayoutSettings>
+                                        <igDP:FieldLayoutSettings AutoGenerateFields="True" />
+                                    </igDP:XamDataGrid.FieldLayoutSettings>
+                                </igDP:XamDataGrid>
+                            </DockPanel>
+                        </igDock:ContentPane>
+                        <igDock:ContentPane Header="Team Info" AllowClose="False" AllowDocking="False" AllowDockingBottom="False" AllowDockingFloating="False" AllowDockingInTabGroup="False" AllowDockingLeft="False" AllowDockingRight="False" AllowDockingTop="False" AllowFloatingOnly="False" AllowInDocumentHost="False" AllowPinning="False" CloseButtonVisibility="Hidden" BorderBrush="{x:Null}">
+                            <DockPanel>
+                                <igDP:XamDataGrid DockPanel.Dock="Bottom" DataContext="{StaticResource teamInfoViewSource}" DataSource="{Binding TeamInfo}" >
+                                    <igDP:XamDataGrid.FieldLayoutSettings>
+                                        <igDP:FieldLayoutSettings AutoGenerateFields="True" />
+                                    </igDP:XamDataGrid.FieldLayoutSettings>
+                                </igDP:XamDataGrid>
+                            </DockPanel>
+                        </igDock:ContentPane>
+                        <igDock:ContentPane Header="Scouted Players" AllowClose="False" AllowDocking="False" AllowDockingBottom="False" AllowDockingFloating="False" AllowDockingInTabGroup="False" AllowDockingLeft="False" AllowDockingRight="False" AllowDockingTop="False" AllowFloatingOnly="False" AllowInDocumentHost="False" AllowPinning="False" CloseButtonVisibility="Hidden" BorderBrush="{x:Null}">
+                            <DockPanel>
+                                <igDP:XamDataGrid DockPanel.Dock="Bottom" DataContext="{StaticResource teamInfoViewSource}" DataSource="{Binding ScoutedPlayers}"
+                                                  Theme="IGTheme">
+                                    <igDP:XamDataGrid.FieldLayoutSettings>
+                                        <igDP:FieldLayoutSettings 
+                                            AutoGenerateFields="False"
+                                            AllowFieldGroupCollapsing="True"
+                                            FilterUIType="FilterRecord"
+                                            HighlightAlternateRecords="True"
+                                            AllowAddNew="True"
+                                        />
+                                    </igDP:XamDataGrid.FieldLayoutSettings>
+
+                                    <igDP:XamDataGrid.FieldSettings>
+                                        <igDP:FieldSettings 
+                                            AllowRecordFiltering="true" 
+                                            CellHeight="30"
+                                            CellClickAction="EnterEditModeIfAllowed"
+                                            LabelTextAlignment="Center"
+                                            AllowSummaries="false"
+                                            SummaryUIType="MultiSelect"
+                                            SummaryDisplayArea="TopFixed"
+                                        />
+                                    </igDP:XamDataGrid.FieldSettings>
+
+                                    <igDP:XamDataGrid.FieldLayouts>
+                                        <igDP:FieldLayout IsDefault="True">
+
+                                            <igDP:FieldLayout.SortedFields>
+                                                <igDP:FieldSortDescription Direction="Ascending" FieldName="Position" />
+                                            </igDP:FieldLayout.SortedFields>
+
+                                            <igDP:Field Name="Position" Label="Position" Width="75" FixedLocation="FixedToNearEdge" Column="1" />
+                                            <igDP:Field Name="Name" Label="Name" Width="75" FixedLocation="FixedToNearEdge" Column="1" />
+                                            <igDP:Field Name="ProjRound" Label="Proj" Width="75" FixedLocation="FixedToNearEdge" Column="1" />
+                                            <igDP:Field Name="TalentRound" Label="Talent" Width="75" FixedLocation="FixedToNearEdge" Column="1" />
+                                            
+                                            <igDP:Field Name="Age" Label="Age" Width="75" Column="1" />
+                                            <igDP:Field Name="Height" Label="Hght" Width="75" Column="1" />
+                                            <igDP:Field Name="DraftStory" Label="Draft Story" Width="150" Column="1" />
+                                            
+                                            <igDP:Field Name="ScoutedSkill1" Label="Scouted Skill 1" Width="100" Column="1" />
+                                            <igDP:Field Name="ScoutedGrade1" Label="Grade" Width="50" Column="1" />
+                                            <igDP:Field Name="ScoutedSkill2" Label="Scouted Skill 1" Width="100" Column="1" />
+                                            <igDP:Field Name="ScoutedGrade2" Label="Grade" Width="50" Column="1" />
+                                            <igDP:Field Name="ScoutedSkill3" Label="Scouted Skill 1" Width="100" Column="1" />
+                                            <igDP:Field Name="ScoutedGrade3" Label="Grade" Width="50" Column="1" />
+
+                                            <igDP:Field Name="Combine40" Label="40 Time" Width="75" Column="1" />
+                                            <igDP:Field Name="CombineVertical" Label="Vertical" Width="75" Column="1" />
+                                            <igDP:Field Name="CombineCone" Label="3 Cone" Width="75" Column="1" />
+                                            <igDP:Field Name="CombineShuttle" Label="Shuttle" Width="75" Column="1" />
+                                            <igDP:Field Name="CombineBench" Label="Bench Reps" Width="75" Column="1" />
+
+                                            <igDP:Field Name="DraftStatus" Label="Draft Status" Width="150" Column="1" />
+
+                                            <igDP:Field Name="SlowDevChance" Label="SL Dev %" Width="75" Column="1" />
+                                            <igDP:Field Name="NormalDevChance" Label="N Dev %" Width="75" Column="1" />
+                                            <igDP:Field Name="QuickDevChance" Label="Q Dev %" Width="75" Column="1" />
+                                            <igDP:Field Name="SuperDevChance" Label="SS Dev %" Width="75" Column="1" />
+
+                                            <igDP:Field Name="TrueValue" Label="True Value Rating" Width="75" Column="1" />
+                                            <igDP:Field Name="DraftBoardRank" Label="Draft Board Rank" Width="75" Column="1" />
+                                            <igDP:Field Name="DraftPlayerTaken" Label="Draft Player Taken" Width="75" Column="1" />
+                                            
+                                            <igDP:Field Name="PostDraftOvr" Label="Post Draft OVR" Width="75" Column="1" />
+
+                                        </igDP:FieldLayout>
+                                    </igDP:XamDataGrid.FieldLayouts>
+                                </igDP:XamDataGrid>
+                            </DockPanel>
+                        </igDock:ContentPane>-->
+                    
+                    </igDock:TabGroupPane>
+                </igDock:SplitPane>
+            </igDock:DocumentContentHost>
+        </igDock:XamDockManager>
+    </DockPanel>
 </Window>
