@@ -1,0 +1,6 @@
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Release\MainWindow.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Release\App.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Release\MaddenCompanion_MarkupCompile.cache
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Release\MaddenCompanion_MarkupCompile.lref
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Release\DialogBox.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Release\GeneratedInternalTypeHelper.g.cs

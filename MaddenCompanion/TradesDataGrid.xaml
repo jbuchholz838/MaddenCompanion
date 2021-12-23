@@ -1,0 +1,315 @@
+﻿<UserControl x:Class="MaddenCompanion.TradesDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MaddenCompanion"
+             xmlns:convert="clr-namespace:MaddenCompanion.Converters"
+             xmlns:igDP="http://infragistics.com/DataPresenter"
+             xmlns:igEditors="http://infragistics.com/Editors"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <local:DevTraitCompare x:Key="DevTraitCompare" />
+        <local:NumColorScaleConverter x:Key="NumColorScaleConverter" />
+        <local:DevColorScaleConverter x:Key="DevColorScaleConverter" />
+        <local:DesireColorScaleConverter x:Key="DesireColorScaleConverter"  />
+        <local:SalaryConverter x:Key="SalaryConverter" />
+        <convert:RateToGradientConverter x:Key="RateToGradientConverter" />
+
+        <Style TargetType="{x:Type igDP:DataRecordCellArea}">
+            <Setter Property="BackgroundAlternate" Value="#FF005DFF" />
+            <Setter Property="BorderAlternateBrush" Value="#B2ACACAC" />
+            <Setter Property="BackgroundHover" Value="{x:Null}" />
+            <Setter Property="BackgroundSelected" Value="#FF005DFF" />
+            <Setter Property="BackgroundActive" Value="#FF005DFF" />
+            <Setter Property="BorderSelectedBrush" Value="#FF005DFF" />
+        </Style>
+
+        <Style TargetType="{x:Type igDP:GroupByRecordPresenter}">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Background" Value="Red" />
+        </Style>
+
+        <igDP:FieldSettings x:Key="RatingFieldSettings">
+            <igDP:FieldSettings.CellValuePresenterStyle>
+                <Style TargetType="{x:Type igDP:CellValuePresenter}">
+                    <Setter Property="Background" Value="{Binding Value, RelativeSource={RelativeSource Self}, Converter={StaticResource RateToGradientConverter}}" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </igDP:FieldSettings.CellValuePresenterStyle>
+        </igDP:FieldSettings>
+
+        <igDP:FieldSettings x:Key="CenterNumberSettings" Width="60" LabelTextAlignment="Center">
+            <igDP:FieldSettings.CellValuePresenterStyle>
+                <Style TargetType="{x:Type igDP:CellValuePresenter}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </igDP:FieldSettings.CellValuePresenterStyle>
+        </igDP:FieldSettings>
+
+        <igDP:FieldSettings x:Key="MoneyFieldSettings">
+            <igDP:FieldSettings.EditorStyle>
+                <Style TargetType="{x:Type igEditors:XamNumericEditor}">
+                    <Setter Property="ValueToDisplayTextConverter" Value="{StaticResource SalaryConverter}" />
+                </Style>
+            </igDP:FieldSettings.EditorStyle>
+        </igDP:FieldSettings>
+
+        <Style TargetType="{x:Type igDP:CellValuePresenter}" x:Key="DesirePresenterStyle">
+            <Setter Property="Background" Value="{Binding Value, RelativeSource={RelativeSource Self}, Converter={StaticResource DesireColorScaleConverter}}" />
+        </Style>
+
+        <igDP:FieldLength x:Key="RatingsWidth">60</igDP:FieldLength>
+        <sys:String x:Key="MoneyMask">nnn,nnn,nnn,nnn</sys:String>
+        <sys:String x:Key="MoneyMaskMillions">$nnn.n M</sys:String>
+        <sys:String x:Key="MoneyMaskThousands">nnn,nnn,nnn,nnn</sys:String>
+        <x:Array x:Key="DesireOptions" Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <sys:String>High</sys:String>
+            <sys:String>Medium</sys:String>
+            <sys:String>Low</sys:String>
+            <sys:String>-</sys:String>
+        </x:Array>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <igDP:XamDataGrid x:Name="DataGrid" DockPanel.Dock="Bottom" SelectedDataItemsScope="RecordsOnly" IsGroupByAreaExpanded="True" Theme="IGTheme" UpdateMode="OnCellChangeOrLostFocus">
+
+            <igDP:XamDataGrid.ViewSettings>
+                <igDP:GridViewSettings Orientation="Horizontal" />
+            </igDP:XamDataGrid.ViewSettings>
+            
+            <igDP:XamDataGrid.FieldLayoutSettings>
+                <igDP:FieldLayoutSettings 
+                                            AutoGenerateFields="False"
+                                            AllowFieldGroupCollapsing="True"
+                                            HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                            FilterUIType="FilterRecord"
+                                            HighlightAlternateRecords="True"
+                                            AllowAddNew="True"
+                                            AllowDelete="True"
+                                            AllowRecordFixing="Top"
+                                        />
+            </igDP:XamDataGrid.FieldLayoutSettings>
+
+            <igDP:XamDataGrid.FieldSettings>
+                <igDP:FieldSettings 
+                                            AllowRecordFiltering="true" 
+                                            AllowEdit="True"
+                                            CellHeight="30"
+                                            CellClickAction="EnterEditModeIfAllowed"
+                                            LabelTextAlignment="Center"
+                                            AllowSummaries="false"
+                                            SummaryUIType="MultiSelect"
+                                            SummaryDisplayArea="TopFixed"
+                                        />
+            </igDP:XamDataGrid.FieldSettings>
+
+            <igDP:XamDataGrid.FieldLayouts>
+                <igDP:FieldLayout IsDefault="True">
+
+                    <igDP:Field Name="PlayerName" Label="Player Name" Width="150" FixedLocation="FixedToNearEdge" Column="1" />
+                    <igDP:Field Name="Position" Label="Position" Width="75" FixedLocation="FixedToNearEdge" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Column="2" />
+                    <igDP:NumericField Name="Overall" Label="Ovr" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="{StaticResource RatingsWidth}" FixedLocation="FixedToNearEdge" Column="3" />
+
+                    <!-- Teams -->
+                    <igDP:ComboBoxField Name="BearsDesire" Label="Bears" ToolTip="Player Desire Level" Column="4" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="BengalsDesire" Label="Bengals" ToolTip="Player Desire Level" Column="5" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="BillsDesire" Label="Bills" ToolTip="Player Desire Level" Column="6" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="BroncosDesire" Label="Broncos" ToolTip="Player Desire Level" Column="5" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+                    
+                    <igDP:ComboBoxField Name="BrownsDesire" Label="Browns" ToolTip="Player Desire Level" Column="7" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="BucaneersDesire" Label="Bucaneers" ToolTip="Player Desire Level" Column="8" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="CardinalsDesire" Label="Cardinals" ToolTip="Player Desire Level" Column="9" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="ChargersDesire" Label="Chargers" ToolTip="Player Desire Level" Column="10" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="CheifsDesire" Label="Cheifs" ToolTip="Player Desire Level" Column="11" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="ColtsDesire" Label="Colts" ToolTip="Player Desire Level" Column="12" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="CowboysDesire" Label="Cowboys" ToolTip="Player Desire Level" Column="13" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="DolphinsDesire" Label="Dolphins" ToolTip="Player Desire Level" Column="14" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="EaglesDesire" Label="Eagles" ToolTip="Player Desire Level" Column="15" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="FalconsDesire" Label="Falcons" ToolTip="Player Desire Level" Column="16" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="FortyNinersDesire" Label="49ers" ToolTip="Player Desire Level" Column="17" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="GiantsDesire" Label="Giants" ToolTip="Player Desire Level" Column="18" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="JaguarsDesire" Label="Jaguars" ToolTip="Player Desire Level" Column="19" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="JetsDesire" Label="Jets" ToolTip="Player Desire Level" Column="20" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="LionsDesire" Label="Lions" ToolTip="Player Desire Level" Column="21" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="PackersDesire" Label="Packers" ToolTip="Player Desire Level" Column="22" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="PanthersDesire" Label="Panthers" ToolTip="Player Desire Level" Column="23" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="PatriotsDesire" Label="Patriots" ToolTip="Player Desire Level" Column="24" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="RaidersDesire" Label="Raiders" ToolTip="Player Desire Level" Column="25" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="RamsDesire" Label="Rams" ToolTip="Player Desire Level" Column="26" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="RavensDesire" Label="Ravens" ToolTip="Player Desire Level" Column="27" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="RedskinsDesire" Label="Redskins" ToolTip="Player Desire Level" Column="28" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="SaintsDesire" Label="Saints" ToolTip="Player Desire Level" Column="29" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="SeahawksDesire" Label="Seahawks" ToolTip="Player Desire Level" Column="30" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="SteelersDesire" Label="Steelers" ToolTip="Player Desire Level" Column="31" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="TexansDesire" Label="Texans" ToolTip="Player Desire Level" Column="32" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="TitansDesire" Label="Titans" ToolTip="Player Desire Level" Column="33" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                    <igDP:ComboBoxField Name="VikingsDesire" Label="Vikings" ToolTip="Player Desire Level" Column="34" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" ItemsSource="{Binding Source={StaticResource DesireOptions}}">
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}" CellValuePresenterStyle="{StaticResource DesirePresenterStyle}" />
+                        </igDP:Field.Settings>
+                    </igDP:ComboBoxField>
+
+                </igDP:FieldLayout>
+
+            </igDP:XamDataGrid.FieldLayouts>
+        </igDP:XamDataGrid>
+    </DockPanel>
+</UserControl>

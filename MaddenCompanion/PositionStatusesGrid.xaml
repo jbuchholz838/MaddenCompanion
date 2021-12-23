@@ -1,0 +1,206 @@
+﻿<UserControl x:Class="MaddenCompanion.PositionStatusesGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MaddenCompanion"
+             xmlns:convert="clr-namespace:MaddenCompanion.Converters"
+             xmlns:igDP="http://infragistics.com/DataPresenter"
+             xmlns:igEditors="http://infragistics.com/Editors"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:DevTraitCompare x:Key="DevTraitCompare" />
+        <local:NumColorScaleConverter x:Key="NumColorScaleConverter" />
+        <local:DevColorScaleConverter x:Key="DevColorScaleConverter" />
+        <local:DesireColorScaleConverter x:Key="DesireColorScaleConverter"  />
+        <local:SalaryConverter x:Key="SalaryConverter" />
+        <convert:RateToGradientConverter x:Key="RateToGradientConverter" />
+
+        <Style TargetType="{x:Type igDP:DataRecordCellArea}">
+            <Setter Property="BackgroundAlternate" Value="#FF005DFF" />
+            <Setter Property="BorderAlternateBrush" Value="#B2ACACAC" />
+            <Setter Property="BackgroundHover" Value="{x:Null}" />
+            <Setter Property="BackgroundSelected" Value="#FF005DFF" />
+            <Setter Property="BackgroundActive" Value="#FF005DFF" />
+            <Setter Property="BorderSelectedBrush" Value="#FF005DFF" />
+        </Style>
+
+        <Style TargetType="{x:Type igDP:GroupByRecordPresenter}">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Background" Value="Red" />
+        </Style>
+
+        <igDP:FieldSettings x:Key="RatingFieldSettings">
+            <igDP:FieldSettings.CellValuePresenterStyle>
+                <Style TargetType="{x:Type igDP:CellValuePresenter}">
+                    <Setter Property="Background" Value="{Binding Value, RelativeSource={RelativeSource Self}, Converter={StaticResource RateToGradientConverter}}" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </igDP:FieldSettings.CellValuePresenterStyle>
+        </igDP:FieldSettings>
+
+        <igDP:FieldSettings x:Key="CenterNumberSettings" Width="60" LabelTextAlignment="Center">
+            <igDP:FieldSettings.CellValuePresenterStyle>
+                <Style TargetType="{x:Type igDP:CellValuePresenter}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </igDP:FieldSettings.CellValuePresenterStyle>
+        </igDP:FieldSettings>
+
+        <igDP:FieldSettings x:Key="MoneyFieldSettings">
+            <igDP:FieldSettings.EditorStyle>
+                <Style TargetType="{x:Type igEditors:XamNumericEditor}">
+                    <Setter Property="ValueToDisplayTextConverter" Value="{StaticResource SalaryConverter}" />
+                </Style>
+            </igDP:FieldSettings.EditorStyle>
+        </igDP:FieldSettings>
+
+        <Style TargetType="{x:Type igDP:CellValuePresenter}" x:Key="DesirePresenterStyle">
+            <Setter Property="Background" Value="{Binding Value, RelativeSource={RelativeSource Self}, Converter={StaticResource DesireColorScaleConverter}}" />
+        </Style>
+
+        <igDP:FieldLength x:Key="RatingsWidth">60</igDP:FieldLength>
+        <sys:String x:Key="MoneyMask">nnn,nnn,nnn,nnn</sys:String>
+        <sys:String x:Key="MoneyMaskMillions">$nnn.n M</sys:String>
+        <sys:String x:Key="MoneyMaskThousands">nnn,nnn,nnn,nnn</sys:String>
+
+        <x:Array x:Key="ActionOptions" Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <sys:String>Cut</sys:String>
+            <sys:String>Replace</sys:String>
+            <sys:String>Need</sys:String>
+            <sys:String>Trade For</sys:String>
+            <sys:String>FA Sign</sys:String>
+            <sys:String>Draft</sys:String>
+            <sys:String>-</sys:String>
+        </x:Array>
+
+        <x:Array x:Key="PositionOptions" Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <sys:String>C</sys:String>
+            <sys:String>CB 1</sys:String>
+            <sys:String>CB 2</sys:String>
+            <sys:String>DT 1</sys:String>
+            <sys:String>DT 2</sys:String>
+            <sys:String>FB</sys:String>
+            <sys:String>FS</sys:String>
+            <sys:String>HB</sys:String>
+            <sys:String>K</sys:String>
+            <sys:String>LE</sys:String>
+            <sys:String>LG</sys:String>
+            <sys:String>LOLB</sys:String>
+            <sys:String>LT</sys:String>
+            <sys:String>MLB</sys:String>
+            <sys:String>P</sys:String>
+            <sys:String>QB</sys:String>
+            <sys:String>RE</sys:String>
+            <sys:String>RG</sys:String>
+            <sys:String>ROLB</sys:String>
+            <sys:String>RT</sys:String>
+            <sys:String>SS</sys:String>
+            <sys:String>TE</sys:String>
+            <sys:String>WR 1</sys:String>
+            <sys:String>WR 2</sys:String>
+            <sys:String>WR 3</sys:String>
+        </x:Array>
+
+    </UserControl.Resources>
+
+    <DockPanel>
+        <igDP:XamDataGrid x:Name="DataGrid" DockPanel.Dock="Bottom" SelectedDataItemsScope="RecordsOnly" IsGroupByAreaExpanded="False" Theme="IGTheme" UpdateMode="OnCellChangeOrLostFocus" >
+
+            <igDP:XamDataGrid.ViewSettings>
+                <igDP:GridViewSettings Orientation="Vertical" />
+            </igDP:XamDataGrid.ViewSettings>
+
+            <igDP:XamDataGrid.FieldLayoutSettings>
+                <igDP:FieldLayoutSettings 
+                                            AutoGenerateFields="False"
+                                            AllowFieldGroupCollapsing="True"
+                                            HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                            FilterUIType="FilterRecord"
+                                            HighlightAlternateRecords="True"
+                                            AllowAddNew="False"
+                                            AllowDelete="False"
+                                            AllowRecordFixing="Top"
+                                        />
+            </igDP:XamDataGrid.FieldLayoutSettings>
+
+            <igDP:XamDataGrid.FieldSettings>
+                <igDP:FieldSettings 
+                                            AllowRecordFiltering="true" 
+                                            AllowEdit="True"
+                                            CellHeight="30"
+                                            CellClickAction="EnterEditModeIfAllowed"
+                                            LabelTextAlignment="Center"
+                                            AllowSummaries="false"
+                                            SummaryUIType="MultiSelect"
+                                            SummaryDisplayArea="TopFixed"
+                                        />
+            </igDP:XamDataGrid.FieldSettings>
+
+            <igDP:XamDataGrid.FieldLayouts>
+                <igDP:FieldLayout IsDefault="True">
+
+                    <igDP:ComboBoxField Name="Position" Label="Pos" ToolTip="Position" Column="1" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="65" ItemsSource="{Binding Source={StaticResource PositionOptions}}" LimitToList="False"/>
+                    <igDP:Field Name="StarterName" Label="Starter" Width="150" Column="2" />
+                    <igDP:Field Name="StarterAge" Label="Age" ToolTip="Age" Column="3" HorizontalContentAlignment="Center" Width="60"/>
+                    <igDP:Field Name="StarterOVR" Label="S-OVR" ToolTip="Scheme Overall" Column="4" LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                    <igDP:Field Name="StarterYearsRemain" Label="Remain" ToolTip="Starter Contract Years Remaining" Column="5" HorizontalContentAlignment="Center" Width="60"/>
+                    <igDP:NumericField Name="StarterSalary" Label="Salary" ToolTip="Starter Contract Salary" Visibility="Visible" Settings="{StaticResource MoneyFieldSettings}" Column="6" Width="60" />
+                    <igDP:NumericField Name="StarterBonus" Label="Bonus" ToolTip="Starter Contract Bonus" Visibility="Visible" Settings="{StaticResource MoneyFieldSettings}" Column="7" Width="60" />
+
+                    <igDP:NumericField Name="NumBackups" Label="Backups" ToolTip="Number of Backups" Visibility="Visible" Column="8" Width="60" HorizontalContentAlignment="Center" />
+                    <igDP:Field Name="BackupOVRs" Label="Backup OVRs" ToolTip="Backup Overall Ratings" Width="150" Column="9" />
+                    <igDP:Field Name="Target" Label="Target" Column="10" Width="60" />
+
+                    <!-- Child Records -->
+                    <igDP:Field Name="PositionPlayers" Label="Position Players" Width="100" FixedLocation="FixedToNearEdge" Column="1"  />
+
+                    <!-- Field Sorting -->
+                    <igDP:FieldLayout.SortedFields>
+                        <igDP:FieldSortDescription IsGroupBy="False" Direction="Ascending" FieldName="Position" />
+                    </igDP:FieldLayout.SortedFields>
+
+                </igDP:FieldLayout>
+
+                <igDP:FieldLayout Key="PositionPlayers" ParentFieldName="PositionPlayers">
+
+                    <igDP:FieldLayout.Settings>
+                        <igDP:FieldLayoutSettings AutoGenerateFields="False" HighlightAlternateRecords="True" />
+                    </igDP:FieldLayout.Settings>
+
+                    <igDP:Field Name="FirstName" Label="First Name" Width="90" FixedLocation="FixedToNearEdge" Column="1" />
+                    <igDP:Field Name="LastName" Label="Last Name" Width="90" FixedLocation="FixedToNearEdge" Column="2" />
+
+                    <igDP:Field Name="PlayerSchemeOvr" Label="S-OVR" ToolTip="Scheme Overall" Column="1" LabelTextAlignment="Center" Width="{StaticResource RatingsWidth}" Settings="{StaticResource RatingFieldSettings}" />
+                    <igDP:Field Name="DevTrait" Label="DEV" ToolTip="Development" Column="11" LabelTextAlignment="Center" HorizontalContentAlignment="Center" Width="80" >
+                        <igDP:Field.Settings>
+                            <igDP:FieldSettings SortComparer="{StaticResource DevTraitCompare}">
+                                <igDP:FieldSettings.CellValuePresenterStyle>
+                                    <Style TargetType="{x:Type igDP:CellValuePresenter}">
+                                        <Setter Property="Background" Value="{Binding Value, RelativeSource={RelativeSource Self}, Converter={StaticResource DevColorScaleConverter}}" />
+                                    </Style>
+                                </igDP:FieldSettings.CellValuePresenterStyle>
+                            </igDP:FieldSettings>
+                        </igDP:Field.Settings>
+                    </igDP:Field>
+
+                    <igDP:FieldGroup Label="Current Contract" Column="8">
+                        <igDP:NumericField Name="ContractSalary" Label="Salary" ToolTip="Current Contract Salary" Visibility="Visible" Settings="{StaticResource MoneyFieldSettings}" Column="0" Width="60" />
+                        <igDP:NumericField Name="ContractBonus" Label="Bonus" ToolTip="Current Contract Bonus" Visibility="Visible" Settings="{StaticResource MoneyFieldSettings}" Column="2" Width="60" />
+                        <igDP:Field Name="ContractLength" Label="Length" ToolTip="Current Contact Length" Column="3" Visibility="Visible" HorizontalContentAlignment="Center" Width="60"/>
+
+                        <igDP:NumericField Name="ContractYearSalary" Label="Yearly" ToolTip="Current Contract Yearly Salary" Settings="{StaticResource MoneyFieldSettings}" Column="4" Width="60" />
+                        <igDP:Field Name="ContractYearsLeft" Label="Remain" ToolTip="Current Contract Years Remaining" Column="5" HorizontalContentAlignment="Center" Width="60"/>
+                        <igDP:NumericField Name="CapHit" Label="Cap Hit" ToolTip="Current Cap Hit" Settings="{StaticResource MoneyFieldSettings}" Column="6" Width="60" />
+                        <igDP:NumericField Name="CapReleasePenalty" Label="Penalty" ToolTip="Release Cap Penalty" Visibility="Visible" Settings="{StaticResource MoneyFieldSettings}" Width="60" Column="7" />
+                        <igDP:NumericField Name="CapReleaseNetSavings" Label="Save" ToolTip="Release Cap Savings" Settings="{StaticResource MoneyFieldSettings}" Width="60" Column="8" />
+                    </igDP:FieldGroup>
+
+                </igDP:FieldLayout>
+
+            </igDP:XamDataGrid.FieldLayouts>
+        </igDP:XamDataGrid>
+    </DockPanel>
+</UserControl>

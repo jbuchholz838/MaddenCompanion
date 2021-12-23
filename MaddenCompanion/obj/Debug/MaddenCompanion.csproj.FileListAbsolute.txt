@@ -1,0 +1,217 @@
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.exe.config
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.exe
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.pdb
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.exe
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.pdb
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DataPresenter.v16.1.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Editors.v16.1.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.v16.1.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\Newtonsoft.Json.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DataPresenter.v16.1.xml
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Editors.v16.1.xml
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.v16.1.xml
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\Newtonsoft.Json.xml
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csprojResolveAssemblyReference.cache
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MainWindow.g.cs
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\TestWindow.g.cs
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\App.g.cs
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion_MarkupCompile.cache
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion_MarkupCompile.lref
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MainWindow.baml
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\TestWindow.baml
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.g.resources
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.Properties.Resources.resources
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csproj.GenerateResource.Cache
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.exe.licenses
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DockManager.v16.1.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.xml
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DockManager.v16.1.xml
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Windows\Justin\Documents\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MainWindow.g.cs
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\TestWindow.g.cs
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\App.g.cs
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion_MarkupCompile.cache
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion_MarkupCompile.lref
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.exe.config
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.exe
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.pdb
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DataPresenter.v16.1.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DockManager.v16.1.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Editors.v16.1.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.v16.1.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\Newtonsoft.Json.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.xml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DataPresenter.v16.1.xml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DockManager.v16.1.xml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Editors.v16.1.xml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.v16.1.xml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\Newtonsoft.Json.xml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.v16.1.resources.dll
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MainWindow.baml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\TestWindow.baml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.g.resources
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.Properties.Resources.resources
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csproj.GenerateResource.Cache
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.exe.licenses
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.exe
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.pdb
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.exe.config
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.exe
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.pdb
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\Newtonsoft.Json.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\Newtonsoft.Json.xml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MainWindow.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\TestWindow.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\App.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion_MarkupCompile.cache
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion_MarkupCompile.lref
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MainWindow.baml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\TestWindow.baml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.g.resources
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.Properties.Resources.resources
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csproj.GenerateResource.Cache
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.exe.licenses
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csproj.CoreCompileInputs.cache
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.exe
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.pdb
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csproj.CopyComplete
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\Themes\Generic.baml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\PlayerDataGrid.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\PlayerDataGrid.baml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csprojAssemblyReference.cache
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\TradesDataGrid.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\TradesDataGrid.baml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\ActionsDataGrid.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\ActionsDataGrid.baml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csprojAssemblyReference.cache
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\ActionsDataGrid.g.cs
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\PlayerDataGrid.g.cs
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\TradesDataGrid.g.cs
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\ActionsDataGrid.baml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\PlayerDataGrid.baml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\Themes\Generic.baml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\TradesDataGrid.baml
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csproj.CoreCompileInputs.cache
+D:\Users\jbuchholz\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csproj.CopyComplete
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.xml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DataPresenter.v16.1.xml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DockManager.v16.1.xml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Editors.v16.1.xml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.v16.1.xml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.v16.1.resources.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\PositionStatusesGrid.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\PositionStatusesGrid.baml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\DialogBox.g.cs
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\obj\Debug\DialogBox.baml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\Firebase.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\LiteDB.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\System.Reactive.dll
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\Firebase.xml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\LiteDB.xml
+D:\Users\jbuch\Dropbox\Software Development\MaddenCompanion\MaddenCompanion\bin\Debug\System.Reactive.xml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.exe.config
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.exe
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\MaddenCompanion.pdb
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\Firebase.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\LiteDB.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\Newtonsoft.Json.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\System.Reactive.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\Firebase.xml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.xml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DataPresenter.v16.1.xml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.DockManager.v16.1.xml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.Editors.v16.1.xml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\InfragisticsWPF4.v16.1.xml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\LiteDB.xml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\Newtonsoft.Json.xml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\System.Reactive.xml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.Controls.Menus.XamMenu.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.DataPresenter.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.DockManager.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.Editors.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\de\InfragisticsWPF4.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\es\InfragisticsWPF4.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\bin\Debug\fr\InfragisticsWPF4.v16.1.resources.dll
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csprojAssemblyReference.cache
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\ActionsDataGrid.g.cs
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\DialogBox.g.cs
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MainWindow.g.cs
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\PlayerDataGrid.g.cs
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\PositionStatusesGrid.g.cs
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\TestWindow.g.cs
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\TradesDataGrid.g.cs
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\App.g.cs
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion_MarkupCompile.cache
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion_MarkupCompile.lref
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\ActionsDataGrid.baml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\DialogBox.baml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MainWindow.baml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\PlayerDataGrid.baml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\PositionStatusesGrid.baml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\TestWindow.baml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\Themes\Generic.baml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\TradesDataGrid.baml
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.g.resources
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.Properties.Resources.resources
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csproj.GenerateResource.cache
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.exe.licenses
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csproj.CoreCompileInputs.cache
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.csproj.CopyComplete
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.exe
+D:\Users\jbuch\Documents\GitHub\MaddenCompanion\MaddenCompanion\obj\Debug\MaddenCompanion.pdb

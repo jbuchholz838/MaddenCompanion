@@ -1,0 +1,7 @@
+{
+	"FirebaseUrl":"",
+	"FirebaseSecret":"",
+	"TradesFilePath":".\\PlayerTrades.json",
+	"ActionsFilePath":".\\Actions.json",
+	"PositionsFilePath":".\\PositionStatuses.json"
+}
