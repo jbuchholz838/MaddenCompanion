@@ -1,6 +1,6 @@
 # Madden Companion
 
-A program created as a companion for the Franchise mode in the recent Madden NFL games as a way to help maintain my team's roster.
+A program created as a companion for the Franchise mode in the Madden NFL games as a way to help maintain my team's roster.
 
 Development began in 2017 and is still occasionally used and expanded upon.
 
