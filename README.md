@@ -2,6 +2,13 @@
 
 A program created as a companion for the Franchise mode in the recent Madden NFL games as a way to help maintain my team's roster.
 
+## Main Technologies
+- C# .Net 4.7.2
+- WPF
+- Infragistics
+- JSON
+- Firebase
+
 ## Screenshots
 
 ##### My Players
